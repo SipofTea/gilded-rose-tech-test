@@ -26,15 +26,19 @@ class Shop {
 
   updateQuality(item) {
     if (this.specialItems.includes(item.name)) {
-      switch (item.name) {
-        case "Aged Brie":
-          this.agedBrieQualityIncrease(item);
-          break;
-        case "Backstage passes to a TAFKAL80ETC concert":
-          this.backStageQualityUpdate(item);
-      }
+      this.updateSpecialItemQuality(item);
     } else {
       this.normalQualityReduction(item);
+    }
+  }
+
+  updateSpecialItemQuality(item) {
+    switch (item.name) {
+      case "Aged Brie":
+        this.agedBrieQualityIncrease(item);
+        break;
+      case "Backstage passes to a TAFKAL80ETC concert":
+        this.updateBackStageQuality(item);
     }
   }
 
