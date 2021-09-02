@@ -16,24 +16,14 @@ class Shop {
         this.items[i].name != "Aged Brie" &&
         this.items[i].name != "Backstage passes to a TAFKAL80ETC concert"
       ) {
-        this.normalQualityReduction(this.items[i])
+        this.normalQualityReduction(this.items[i]);
       } else {
-        if (this.items[i].quality < 50) {
-          this.items[i].quality = this.items[i].quality + 1;
-          if (
-            this.items[i].name == "Backstage passes to a TAFKAL80ETC concert"
-          ) {
-            if (this.items[i].sellIn < 11) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1;
-              }
-            }
-            if (this.items[i].sellIn < 6) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1;
-              }
-            }
-          }
+        switch (this.items[i].name) {
+          case "Aged Brie":
+            this.agedBrieQualityIncrease(this.items[i]);
+            break;
+          case "Backstage passes to a TAFKAL80ETC concert":
+            this.backStageQualityIncrease(this.items[i]);
         }
       }
       if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
@@ -64,6 +54,26 @@ class Shop {
     return this.items;
   }
 
+  agedBrieQualityIncrease(item) {
+    if (item.quality < 50) {
+      item.quality = item.quality + 1;
+    }
+  }
+
+  backStageQualityIncrease(item) {
+    if (item.quality < 50) {
+      if (item.sellIn == 0) {
+        item.quality = 0;
+      } else if (item.sellIn < 6) {
+        item.quality += 3;
+      } else if (item.sellIn < 11) {
+        item.quality += 2;
+      } else if (item.sellIn > 10) {
+        item.quality += 1;
+      }
+    }
+  }
+
   normalQualityReduction(item) {
     if (item.quality > 0) {
       if (item.name != "Sulfuras, Hand of Ragnaros") {
@@ -81,8 +91,8 @@ class Shop {
       item.quality;
     } else {
       console.error("Invalid quality, cannot be negative.");
+    }
   }
-}
 
   normalSellInReduction(item) {
     // reduces sellIn by 1 for normal items

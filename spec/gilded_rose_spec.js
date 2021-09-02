@@ -53,6 +53,29 @@ describe("Gilded Rose", function () {
     expect(items[0].quality).toEqual(50);
   })
 
+  it("increases backstage pass quality by one when more than 10 days are left", () => {
+    shop.items = [new Item("Backstage passes to a TAFKAL80ETC concert", 15, 10)];
+    const items = shop.updateQuality();
+    expect(items[0].quality).toEqual(11);
+  })
+
+  it("increases backstage pass quality by two when there are 10 - 5 days left", () => {
+    shop.items = [new Item("Backstage passes to a TAFKAL80ETC concert", 10, 10)];
+    const items = shop.updateQuality();
+    expect(items[0].quality).toEqual(12);
+  })
+
+  it("increases backstage pass quality by 3 when there are less than 5 days left", () => {
+    shop.items = [new Item("Backstage passes to a TAFKAL80ETC concert", 5, 10)];
+    const items = shop.updateQuality();
+    expect(items[0].quality).toEqual(13);
+  })
+
+  it("reduces backstage pass quality to 0 after concert", () => {
+    shop.items = [new Item("Backstage passes to a TAFKAL80ETC concert", 0, 10)];
+    const items = shop.updateQuality();
+    expect(items[0].quality).toEqual(0);
+  })
 
   xit("raises error when sellIn is set to a negative number", () => {
     shop.items = [new Item("foo", -10, 0)];
