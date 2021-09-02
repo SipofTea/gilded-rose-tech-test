@@ -46,23 +46,6 @@ class Shop {
     if (item.name != "Sulfuras, Hand of Ragnaros") {
       this.normalSellInReduction(item);
     }
-    if (item.sellIn < 0) {
-      if (item.name != "Aged Brie") {
-        if (item.name != "Backstage passes to a TAFKAL80ETC concert") {
-          if (items.quality > 0) {
-            if (items.name != "Sulfuras, Hand of Ragnaros") {
-              items.quality = items.quality - 1;
-            }
-          }
-        } else {
-          items.quality = items.quality - items.quality;
-        }
-      } else {
-        if (items.quality < 50) {
-          items.quality = items.quality + 1;
-        }
-      }
-    }
   }
 
   agedBrieQualityIncrease(item) {
@@ -71,7 +54,7 @@ class Shop {
     }
   }
 
-  backStageQualityUpdate(item) {
+  updateBackStageQuality(item) {
     if (item.quality < 50) {
       if (item.sellIn == 0) {
         item.quality = 0;
@@ -88,7 +71,6 @@ class Shop {
   normalQualityReduction(item) {
     if (item.quality > 0) {
       if (item.name != "Sulfuras, Hand of Ragnaros") {
-        // this is where normal item quality is changed
         if (item.sellIn == 0) {
           item.quality = item.quality - 2;
         } else if (item.sellIn > 0) {
