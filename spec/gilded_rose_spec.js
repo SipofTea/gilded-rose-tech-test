@@ -41,6 +41,19 @@ describe("Gilded Rose", function () {
     expect(items[0].quality).toEqual(0);
   })
 
+  it("increases quality of Aged Brie", () => {
+    shop.items = [new Item("Aged Brie", 0, 10)];
+    const items = shop.updateQuality();
+    expect(items[0].quality).toEqual(11);
+  })
+
+  it("doesn't raise quality of Aged Brie over 50", () => {
+    shop.items = [new Item("Aged Brie", 0, 50)];
+    const items = shop.updateQuality();
+    expect(items[0].quality).toEqual(50);
+  })
+
+
   xit("raises error when sellIn is set to a negative number", () => {
     shop.items = [new Item("foo", -10, 0)];
     expect(shop.updateQuality()).toThrow("Invalid sellIn, cannot be negative.")
