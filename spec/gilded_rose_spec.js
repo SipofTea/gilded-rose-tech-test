@@ -41,7 +41,7 @@ describe("Gilded Rose", function () {
     expect(items[0].quality).toEqual(0);
   })
 
-  xit("raises error when selliN is set to a negative number", () => {
+  xit("raises error when sellIn is set to a negative number", () => {
     shop.items = [new Item("foo", -10, 0)];
     expect(shop.updateQuality()).toThrow("Invalid sellIn, cannot be negative.")
   })

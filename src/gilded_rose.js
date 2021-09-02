@@ -16,23 +16,7 @@ class Shop {
         this.items[i].name != "Aged Brie" &&
         this.items[i].name != "Backstage passes to a TAFKAL80ETC concert"
       ) {
-        if (this.items[i].quality > 0) {
-          if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
-            // this is where normal item quality is changed
-            if (this.items[i].sellIn == 0) {
-              this.items[i].quality = this.items[i].quality - 2;
-            } else if (this.items[i].sellIn > 0) {
-              this.items[i].quality = this.items[i].quality - 1;
-            } else {
-              console.error("Invalid sellIn, cannot be negative.");
-            }
-          }
-        } else if (this.items[i].quality == 0) {
-          // this is weird
-          this.items[i].quality
-        } else {
-          console.error('Invalid quality, cannot be negative.')
-        }
+        this.normalQualityReduction(this.items[i])
       } else {
         if (this.items[i].quality < 50) {
           this.items[i].quality = this.items[i].quality + 1;
@@ -53,18 +37,7 @@ class Shop {
         }
       }
       if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
-        // reduces sellIn by 1 for normal items
-        console.log("hello")
-        if (this.items[i].sellIn > 0) {
-          console.log("hi")
-          this.items[i].sellIn = this.items[i].sellIn - 1;
-        } else if (this.items[i].sellIn == 0) {
-          //weird
-          this.items[i].sellIn
-        }
-          else {
-          console.error('Invalid sellIn, cannot be negative.')
-        }
+        this.normalSellInReduction(this.items[i]);
       }
       if (this.items[i].sellIn < 0) {
         if (this.items[i].name != "Aged Brie") {
@@ -73,7 +46,6 @@ class Shop {
           ) {
             if (this.items[i].quality > 0) {
               if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
-                console.log("hello it's me");
                 this.items[i].quality = this.items[i].quality - 1;
               }
             }
@@ -90,6 +62,38 @@ class Shop {
     }
 
     return this.items;
+  }
+
+  normalQualityReduction(item) {
+    if (item.quality > 0) {
+      if (item.name != "Sulfuras, Hand of Ragnaros") {
+        // this is where normal item quality is changed
+        if (item.sellIn == 0) {
+          item.quality = item.quality - 2;
+        } else if (item.sellIn > 0) {
+          item.quality = item.quality - 1;
+        } else {
+          console.error("Invalid sellIn, cannot be negative.");
+        }
+      }
+    } else if (item.quality == 0) {
+      // this is weird
+      item.quality;
+    } else {
+      console.error("Invalid quality, cannot be negative.");
+  }
+}
+
+  normalSellInReduction(item) {
+    // reduces sellIn by 1 for normal items
+    if (item.sellIn > 0) {
+      item.sellIn = item.sellIn - 1;
+    } else if (item.sellIn == 0) {
+      //weird
+      item.sellIn;
+    } else {
+      console.error("Invalid sellIn, cannot be negative.");
+    }
   }
 }
 module.exports = {
