@@ -18,8 +18,20 @@ class Shop {
       ) {
         if (this.items[i].quality > 0) {
           if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
-            this.items[i].quality = this.items[i].quality - 1;
+            // this is where normal item quality is changed
+            if (this.items[i].sellIn == 0) {
+              this.items[i].quality = this.items[i].quality - 2;
+            } else if (this.items[i].sellIn > 0) {
+              this.items[i].quality = this.items[i].quality - 1;
+            } else {
+              console.error("Invalid sellIn, cannot be negative.");
+            }
           }
+        } else if (this.items[i].quality == 0) {
+          // this is weird
+          this.items[i].quality
+        } else {
+          console.error('Invalid quality, cannot be negative.')
         }
       } else {
         if (this.items[i].quality < 50) {
@@ -42,8 +54,16 @@ class Shop {
       }
       if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
         // reduces sellIn by 1 for normal items
+        console.log("hello")
         if (this.items[i].sellIn > 0) {
+          console.log("hi")
           this.items[i].sellIn = this.items[i].sellIn - 1;
+        } else if (this.items[i].sellIn == 0) {
+          //weird
+          this.items[i].sellIn
+        }
+          else {
+          console.error('Invalid sellIn, cannot be negative.')
         }
       }
       if (this.items[i].sellIn < 0) {
@@ -53,6 +73,7 @@ class Shop {
           ) {
             if (this.items[i].quality > 0) {
               if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
+                console.log("hello it's me");
                 this.items[i].quality = this.items[i].quality - 1;
               }
             }
