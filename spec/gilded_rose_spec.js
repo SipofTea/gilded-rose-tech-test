@@ -77,6 +77,18 @@ describe("Gilded Rose", function () {
     expect(items[0].quality).toEqual(0);
   })
 
+  it("doesn't change the sellIn of Sulfuras, Hand of Ragnaros", () => {
+    shop.items = [new Item("Sulfuras, Hand of Ragnaros", 10, 10)];
+    const items = shop.updateQuality();
+    expect(items[0].quality).toEqual(10);
+  })
+
+  it("doesn't change the quality of Sulfuras, Hand of Ragnaros", () => {
+    shop.items = [new Item("Sulfuras, Hand of Ragnaros", 10, 10)];
+    const items = shop.updateQuality();
+    expect(items[0].quality).toEqual(10);
+  })
+
   xit("raises error when sellIn is set to a negative number", () => {
     shop.items = [new Item("foo", -10, 0)];
     expect(shop.updateQuality()).toThrow("Invalid sellIn, cannot be negative.")

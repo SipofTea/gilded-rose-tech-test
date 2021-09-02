@@ -9,22 +9,22 @@ class Item {
 class Shop {
   constructor(items = []) {
     this.items = items;
+    this.specialItems = ["Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros"]
   }
   updateQuality() {
     for (var i = 0; i < this.items.length; i++) {
-      if (
-        this.items[i].name != "Aged Brie" &&
-        this.items[i].name != "Backstage passes to a TAFKAL80ETC concert"
-      ) {
-        this.normalQualityReduction(this.items[i]);
-      } else {
+      if (this.specialItems.includes(this.items[i].name)) {
         switch (this.items[i].name) {
           case "Aged Brie":
             this.agedBrieQualityIncrease(this.items[i]);
             break;
           case "Backstage passes to a TAFKAL80ETC concert":
-            this.backStageQualityIncrease(this.items[i]);
-        }
+            this.backStageQualityUpdate(this.items[i]);
+          case "Sulfuras, Hand of Ragnaros":
+          
+        } 
+      } else {
+        this.normalQualityReduction(this.items[i]);
       }
       if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
         this.normalSellInReduction(this.items[i]);
@@ -60,7 +60,7 @@ class Shop {
     }
   }
 
-  backStageQualityIncrease(item) {
+  backStageQualityUpdate(item) {
     if (item.quality < 50) {
       if (item.sellIn == 0) {
         item.quality = 0;
