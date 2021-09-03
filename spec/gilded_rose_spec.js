@@ -6,6 +6,13 @@ describe("Gilded Rose", function () {
     shop = new Shop();
   });
 
+  it("can add item", () => {
+    shop.addItem("foo", 10, 10);
+    expect(shop.items[0].name).toEqual("foo");
+    expect(shop.items[0].sellIn).toEqual(10);
+    expect(shop.items[0].quality).toEqual(10);
+  });
+
   describe("with a normal item", () => {
     it("returns normal item name", () => {
       shop.items = [new Item("foo", 0, 0)];
@@ -17,12 +24,12 @@ describe("Gilded Rose", function () {
       shop.items = [new Item("Conjured Foo", 10, 10)];
       const items = shop.updateItemStock();
       expect(items[0].quality).toEqual(8);
-    })
+    });
     it("degrades the quality of a conjured normal item with sell in 0 twice as fast", () => {
       shop.items = [new Item("Conjured Foo", 10, 10)];
       const items = shop.updateItemStock();
       expect(items[0].quality).toEqual(8);
-    })
+    });
 
     describe("and a sell in of 0", () => {
       beforeEach(() => {
