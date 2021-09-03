@@ -112,7 +112,8 @@ class Shop {
   }
 }
 
-module.exports = {
-  Item,
-  Shop,
-};
+if (typeof module !== "undefined") module.exports = {
+    Item,
+    Shop,
+  };
+
