@@ -1,119 +1,120 @@
 class Item {
-  constructor(name, sellIn, quality) {
-    this.name = name;
-    this.sellIn = sellIn;
-    this.quality = quality;
+  constructor (name, sellIn, quality) {
+    this.name = name
+    this.sellIn = sellIn
+    this.quality = quality
   }
 }
 
 class Shop {
-  constructor(items = []) {
-    this.items = items;
+  constructor (items = []) {
+    this.items = items
     this.specialItems = [
-      "Aged Brie",
-      "Backstage passes to a TAFKAL80ETC concert",
-      "Sulfuras, Hand of Ragnaros",
-    ];
+      'Aged Brie',
+      'Backstage passes to a TAFKAL80ETC concert',
+      'Sulfuras, Hand of Ragnaros'
+    ]
   }
 
-  addItem(name, sellIn, quality) {
-    let item = new Item(name, sellIn, quality)
-    this.items.push(item);
+  addItem (name, sellIn, quality) {
+    const item = new Item(name, sellIn, quality)
+    this.items.push(item)
   }
 
-  updateItemStock() {
-    for (var i = 0; i < this.items.length; i++) {
-      this.updateQuality(this.items[i]);
-      this.updateSellIn(this.items[i]);
+  updateItemStock () {
+    for (let i = 0; i < this.items.length; i++) {
+      this.updateQuality(this.items[i])
+      this.updateSellIn(this.items[i])
     }
-    return this.items;
+    return this.items
   }
 
-  updateQuality(item) {
-    if (item.name.toLowerCase().split(" ").includes("conjured")) {
-      this.updateConjuredItemQuality(item);
+  updateQuality (item) {
+    if (item.name.toLowerCase().split(' ').includes('conjured')) {
+      this.updateConjuredItemQuality(item)
     } else if (this.specialItems.includes(item.name)) {
-      this.updateSpecialItemQuality(item);
+      this.updateSpecialItemQuality(item)
     } else {
-      this.normalQualityReduction(item);
+      this.normalQualityReduction(item)
     }
   }
 
-  updateConjuredItemQuality(item) {
-    if (item.quality == 0) {
-      return;
+  updateConjuredItemQuality (item) {
+    if (item.quality === 0) {
+      return
     }
-    if (item.sellIn == 0) {
-      item.quality = item.quality - 4;
+    if (item.sellIn === 0) {
+      item.quality = item.quality - 4
     } else if (item.sellIn > 0) {
-      item.quality = item.quality - 2;
+      item.quality = item.quality - 2
     } else {
-      item.quality = 0;
+      item.quality = 0
     }
   }
 
-  updateSpecialItemQuality(item) {
+  updateSpecialItemQuality (item) {
     switch (item.name) {
-      case "Aged Brie":
-        this.agedBrieQualityIncrease(item);
-        break;
-      case "Backstage passes to a TAFKAL80ETC concert":
-        this.updateBackStageQuality(item);
+      case 'Aged Brie':
+        this.agedBrieQualityIncrease(item)
+        break
+      case 'Backstage passes to a TAFKAL80ETC concert':
+        this.updateBackStageQuality(item)
     }
   }
 
-  updateSellIn(item) {
-    if (item.name != "Sulfuras, Hand of Ragnaros") {
-      this.normalSellInReduction(item);
+  updateSellIn (item) {
+    if (item.name !== 'Sulfuras, Hand of Ragnaros') {
+      this.normalSellInReduction(item)
     }
   }
 
-  agedBrieQualityIncrease(item) {
+  agedBrieQualityIncrease (item) {
     if (item.quality <= 50) {
-      item.quality = Math.min(50, item.quality + 1);
+      item.quality = Math.min(50, item.quality + 1)
     }
   }
 
-  updateBackStageQuality(item) {
+  updateBackStageQuality (item) {
     if (item.quality >= 50) {
-      return;
+      return
     }
-    if (item.sellIn == 0) {
-      item.quality = 0;
+    if (item.sellIn === 0) {
+      item.quality = 0
     } else if (item.sellIn < 6) {
-      item.quality += 3;
+      item.quality += 3
     } else if (item.sellIn < 11) {
-      item.quality += 2;
+      item.quality += 2
     } else if (item.sellIn > 10) {
-      item.quality += 1;
+      item.quality += 1
     }
-    item.quality = Math.min(50, item.quality);
+    item.quality = Math.min(50, item.quality)
   }
 
-  normalQualityReduction(item) {
-    if (item.quality == 0) {
-      return;
+  normalQualityReduction (item) {
+    if (item.quality === 0) {
+      return
     }
-    if (item.sellIn == 0) {
-      item.quality = item.quality - 2;
+    if (item.sellIn === 0) {
+      item.quality = item.quality - 2
     } else if (item.sellIn > 0) {
-      item.quality = item.quality - 1;
+      item.quality = item.quality - 1
     } else {
-      item.quality = 0;
+      item.quality = 0
     }
   }
 
-  normalSellInReduction(item) {
+  normalSellInReduction (item) {
     if (item.sellIn > 0) {
-      item.sellIn = item.sellIn - 1;
+      item.sellIn = item.sellIn - 1
     } else {
-      item.sellIn = 0;
+      item.sellIn = 0
     }
   }
 }
 
-if (typeof module !== "undefined") module.exports = {
+if (typeof module !== 'undefined') {
+  module.exports = {
     Item,
-    Shop,
-  };
-
+    Shop
+  }
+}
