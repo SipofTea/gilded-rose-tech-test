@@ -16,6 +16,11 @@ class Shop {
     ];
   }
 
+  addItem(name, sellIn, quality) {
+    let item = new Item(name, sellIn, quality)
+    this.items.push(item);
+  }
+
   updateItemStock() {
     for (var i = 0; i < this.items.length; i++) {
       this.updateQuality(this.items[i]);
