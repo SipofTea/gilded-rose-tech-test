@@ -64,23 +64,25 @@ class Shop {
   }
 
   agedBrieQualityIncrease(item) {
-    if (item.quality < 50) {
-      item.quality = item.quality + 1;
+    if (item.quality <= 50) {
+      item.quality = Math.min(50, item.quality + 1);
     }
   }
 
   updateBackStageQuality(item) {
-    if (item.quality < 50) {
-      if (item.sellIn == 0) {
-        item.quality = 0;
-      } else if (item.sellIn < 6) {
-        item.quality += 3;
-      } else if (item.sellIn < 11) {
-        item.quality += 2;
-      } else if (item.sellIn > 10) {
-        item.quality += 1;
-      }
+    if (item.quality >= 50) {
+      return;
     }
+    if (item.sellIn == 0) {
+      item.quality = 0;
+    } else if (item.sellIn < 6) {
+      item.quality += 3;
+    } else if (item.sellIn < 11) {
+      item.quality += 2;
+    } else if (item.sellIn > 10) {
+      item.quality += 1;
+    }
+    item.quality = Math.min(50, item.quality);
   }
 
   normalQualityReduction(item) {

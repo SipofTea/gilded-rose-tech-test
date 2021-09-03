@@ -107,6 +107,14 @@ describe("Gilded Rose", function () {
       const items = shop.updateItemStock();
       expect(items[0].quality).toEqual(0);
     });
+
+    it("doesn't increase the quality over 50", () => {
+      shop.items = [
+        new Item("Backstage passes to a TAFKAL80ETC concert", 1, 49),
+      ];
+      const items = shop.updateItemStock();
+      expect(items[0].quality).toEqual(50);
+    });
   });
 
   describe("with a Sulfuras, Hand of Ragnaros item", () => {
