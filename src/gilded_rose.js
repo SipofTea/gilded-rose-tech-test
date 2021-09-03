@@ -25,10 +25,25 @@ class Shop {
   }
 
   updateQuality(item) {
-    if (this.specialItems.includes(item.name)) {
+    if (item.name.toLowerCase().split(" ").includes("conjured")) {
+      this.updateConjuredItemQuality(item);
+    } else if (this.specialItems.includes(item.name)) {
       this.updateSpecialItemQuality(item);
     } else {
       this.normalQualityReduction(item);
+    }
+  }
+
+  updateConjuredItemQuality(item) {
+    if (item.quality == 0) {
+      return;
+    }
+    if (item.sellIn == 0) {
+      item.quality = item.quality - 4;
+    } else if (item.sellIn > 0) {
+      item.quality = item.quality - 2;
+    } else {
+      item.quality = 0;
     }
   }
 
