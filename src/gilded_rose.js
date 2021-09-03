@@ -69,33 +69,23 @@ class Shop {
   }
 
   normalQualityReduction(item) {
-    if (item.quality > 0) {
-      if (item.name != "Sulfuras, Hand of Ragnaros") {
-        if (item.sellIn == 0) {
-          item.quality = item.quality - 2;
-        } else if (item.sellIn > 0) {
-          item.quality = item.quality - 1;
-        } else {
-          console.error("Invalid sellIn, cannot be negative.");
-        }
-      }
-    } else if (item.quality == 0) {
-      // this is weird
-      item.quality;
+    if (item.quality == 0) {
+      return;
+    }
+    if (item.sellIn == 0) {
+      item.quality = item.quality - 2;
+    } else if (item.sellIn > 0) {
+      item.quality = item.quality - 1;
     } else {
-      console.error("Invalid quality, cannot be negative.");
+      item.quality = 0;
     }
   }
 
   normalSellInReduction(item) {
-    // reduces sellIn by 1 for normal items
     if (item.sellIn > 0) {
       item.sellIn = item.sellIn - 1;
-    } else if (item.sellIn == 0) {
-      //weird
-      item.sellIn;
     } else {
-      console.error("Invalid sellIn, cannot be negative.");
+      item.sellIn = 0;
     }
   }
 }

@@ -139,18 +139,4 @@ describe("Gilded Rose", function () {
     expect(items[2].sellIn).toEqual(4);
     expect(items[2].quality).toEqual(13);
   });
-
-  xit("raises error when sellIn is set to a negative number", () => {
-    shop.items = [new Item("foo", -10, 0)];
-    expect(shop.updateItemStock()).toThrow(
-      "Invalid sellIn, cannot be negative."
-    );
-  });
-
-  xit("raises error when quality is set to a negative number", () => {
-    shop.items = [new Item("foo", 0, -10)];
-    expect(shop.updateItemStock()).toThrow(
-      "Invalid quality, cannot be negative."
-    );
-  });
 });
